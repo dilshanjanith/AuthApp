@@ -1,0 +1,95 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-4 h1 text-success">Sign up</div>
+
+  <!-- First Name -->
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      formControlName="firstName"
+      placeholder="First Name"
+    />
+    <div class="text-danger" *ngIf="getValidationErrors('firstName')">
+      First Name cannot be empty!
+    </div>
+  </div>
+
+  <!-- Last Name -->
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      formControlName="lastName"
+      placeholder="Last Name"
+    />
+    <div class="text-danger" *ngIf="getValidationErrors('lastName')">
+      Last Name cannot be empty!
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="mb-3">
+    <input
+      class="form-control bg-body-secondary"
+      formControlName="email"
+      placeholder="Email"
+    />
+    <div class="text-danger" *ngIf="getValidationErrors('email')">
+      <div *ngIf="form.get('email')?.hasError('required')">
+        Email cannot be empty!
+      </div>
+      <div *ngIf="form.get('email')?.hasError('email')">
+        Please enter a valid email!
+      </div>
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div class="mb-3">
+    <input
+      type="password"
+      class="form-control bg-body-secondary"
+      formControlName="password"
+      placeholder="Password"
+    />
+    <div class="text-danger" *ngIf="getValidationErrors('password')">
+      <ng-container [ngSwitch]="form.get('password')?.errors | firstKey">
+        <div *ngSwitchCase="'required'">Password cannot be empty!</div>
+        <div *ngSwitchCase="'minlength'">
+          Password must be at least 6 characters long!
+        </div>
+        <div *ngSwitchCase="'maxlength'">
+          Password must be at most 12 characters long!
+        </div>
+        <div *ngSwitchCase="'pattern'">
+          Password must include uppercase, lowercase, number, and special
+          character!
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Confirm Password -->
+  <div class="mb-3">
+    <input
+      type="password"
+      class="form-control bg-body-secondary"
+      formControlName="confirmPassword"
+      placeholder="Confirm Password"
+    />
+    <div
+      class="text-danger"
+      *ngIf="form.errors && (form.touched || hasSubmitted)"
+    >
+      <div *ngIf="form.errors['confirmPasswordRequired']">
+        Confirm Password cannot be empty!
+      </div>
+      <div *ngIf="form.errors['passwordMismatch']">Passwords do not match!</div>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="mb-3">
+    <button type="submit" class="btn btn-success w-100 rounded-3">
+      Register
+    </button>
+  </div>
+</form>

@@ -1,0 +1,14 @@
+Src
+├── app
+│   ├── User
+│   │   ├── User.component.ts
+│   │   ├── User.component.html
+│   │   ├── Login
+│   │   ├── Registration
+│   │ 
+│   ├── Shared
+│   │   ├── pipes
+│   │   │   ├── first-key.pipe.ts
+│   │   ├── Services
+│   │   │   ├── auth.service.ts
+│
